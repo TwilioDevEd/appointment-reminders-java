@@ -1,25 +1,31 @@
 package com.twilio.appointmentreminders;
 
+import com.twilio.appointmentreminders.util.TimeZones;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class Server {
 
-    // Bootstrap our Java application
     public static void main(String[] args) {
-        get("/:name", (request, response) -> {
+        get("/new", (request, response) -> {
             Map map = new HashMap();
-            map.put("name", request.params(":name"));
-            return new ModelAndView(map, "index.mustache");
+
+            TimeZones tz = new TimeZones();
+            List<String> zones = tz.getTimeZones();
+
+            map.put("zones", zones);
+            return new ModelAndView(map, "new.mustache");
         }, new MustacheTemplateEngine());
 
-        get("/hello/:name", (request, response) -> {
-            return "Hello: " + request.params(":name");
+        post("/create", (request, response) -> {
+            return "POST";
         });
     }
 }

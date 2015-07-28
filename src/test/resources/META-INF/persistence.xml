@@ -11,6 +11,9 @@
             <property name="javax.persistence.jdbc.user" value="appointments" />
             <property name="javax.persistence.jdbc.password" value="appointments" />
             <property name="eclipselink.logging.level" value="ALL" />
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
         </properties>
     </persistence-unit>
 </persistence>

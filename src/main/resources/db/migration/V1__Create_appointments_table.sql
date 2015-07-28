@@ -3,5 +3,6 @@ create table appointments (
     name varchar(50) not null,
     phoneNumber varchar(50) not null,
     delta int not null,
-    time timestamp with time zone not null
+    time timestamp not null,
+    timeZone varchar(50) not null
 );

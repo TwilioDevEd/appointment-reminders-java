@@ -7,6 +7,7 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
@@ -18,7 +19,7 @@ public class AppointmentTest {
     @Before
     public void setUp() throws Exception {
         try {
-            emFactory = Persistence.createEntityManagerFactory("Appointments-Persistence");
+            emFactory = Persistence.createEntityManagerFactory("Appointments-Persistence-Test");
             em = emFactory.createEntityManager();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -39,11 +40,7 @@ public class AppointmentTest {
     public void testPersistence() {
         try {
             em.getTransaction().begin();
-            Appointment appointment = new Appointment();
-            appointment.setName("Mario");
-            appointment.setPhoneNumber("+593999031619");
-            appointment.setTime(new Date());
-            appointment.setDelta(10000);
+            Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
 
             em.persist(appointment);
             assertTrue(em.contains(appointment));
