@@ -1,7 +1,9 @@
 package com.twilio.appointmentreminders;
 
+import com.twilio.appointmentreminders.controllers.AppointmentController;
 import com.twilio.appointmentreminders.util.TimeZones;
 import spark.ModelAndView;
+import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import java.util.HashMap;
@@ -14,6 +16,13 @@ import static spark.Spark.post;
 public class Server {
 
     public static void main(String[] args) {
+        Spark.staticFileLocation("/public");
+
+        get("/", (request, response) -> {
+            Map map = new HashMap();
+            return new ModelAndView(map, "index.mustache");
+        }, new MustacheTemplateEngine());
+
         get("/new", (request, response) -> {
             Map map = new HashMap();
 
@@ -24,8 +33,6 @@ public class Server {
             return new ModelAndView(map, "new.mustache");
         }, new MustacheTemplateEngine());
 
-        post("/create", (request, response) -> {
-            return "POST";
-        });
+        post("/create", AppointmentController.create);
     }
 }
