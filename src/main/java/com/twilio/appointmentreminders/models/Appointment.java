@@ -21,9 +21,8 @@ public class Appointment {
     @Column(name = "delta")
     private int delta;
 
-    @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar time;
+    @Column(name = "date")
+    private String date;
 
     @Column(name = "timeZone")
     private String timeZone;
@@ -32,11 +31,11 @@ public class Appointment {
 
     }
 
-    public Appointment(String name, String phoneNumber, int delta, Calendar time, String timeZone) {
+    public Appointment(String name, String phoneNumber, int delta, String date, String timeZone) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.delta = delta;
-        this.time = time;
+        this.date = date;
         this.timeZone = timeZone;
     }
 
@@ -64,12 +63,12 @@ public class Appointment {
         this.delta = delta;
     }
 
-    public Calendar getTime() {
-        return this.time;
+    public String getDate() {
+        return this.date;
     }
 
-    public void setTime(Calendar time) {
-        this.time = time;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTimeZone() {

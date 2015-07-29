@@ -7,7 +7,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
@@ -40,7 +39,7 @@ public class AppointmentTest {
     public void testPersistence() {
         try {
             em.getTransaction().begin();
-            Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
+            Appointment appointment = new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
 
             em.persist(appointment);
             assertTrue(em.contains(appointment));

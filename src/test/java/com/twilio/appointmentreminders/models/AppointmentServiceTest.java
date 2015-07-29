@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -26,7 +26,7 @@ public class AppointmentServiceTest {
     public void testCreate() {
         assertThat(service.count(), is(0L));
 
-        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment);
 
         assertThat(service.count(), is(1L));
@@ -34,10 +34,10 @@ public class AppointmentServiceTest {
 
     @Test
     public void testDeleteAll() {
-        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment);
 
-        Appointment appointment2 = new Appointment("Mario2", "+1234567890", 100, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment2 = new Appointment("Mario2", "+1234567890", 100, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment2);
 
         assertThat(service.count(), is(2L));
@@ -49,10 +49,10 @@ public class AppointmentServiceTest {
 
     @Test
     public void testFindAll() {
-        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment);
 
-        Appointment appointment2 = new Appointment("Mario2", "+1234567890", 100, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment2 = new Appointment("Mario2", "+1234567890", 100, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment2);
 
         List<Appointment> result = service.findAll();
@@ -62,7 +62,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void testCount() {
-        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, Calendar.getInstance(), "America/Guayaquil");
+        Appointment appointment = new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
         service.create(appointment);
 
         assertThat(service.count(), is(1L));
