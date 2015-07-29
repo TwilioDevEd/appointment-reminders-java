@@ -1,8 +1,6 @@
 package com.twilio.appointmentreminders.models;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 @Table(name = "appointments")
@@ -37,6 +35,10 @@ public class Appointment {
         this.delta = delta;
         this.date = date;
         this.timeZone = timeZone;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

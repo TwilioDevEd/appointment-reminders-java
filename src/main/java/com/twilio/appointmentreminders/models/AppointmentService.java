@@ -13,9 +13,19 @@ public class AppointmentService {
         this.entityManager = entityManager;
     }
 
+    public Appointment getAppointment(Long id) {
+        return entityManager.find(Appointment.class, id);
+    }
+
     public void create(Appointment appointment) {
         getTransaction().begin();
         entityManager.persist(appointment);
+        getTransaction().commit();
+    }
+
+    public void delete(Appointment appointment) {
+        getTransaction().begin();
+        entityManager.remove(appointment);
         getTransaction().commit();
     }
 

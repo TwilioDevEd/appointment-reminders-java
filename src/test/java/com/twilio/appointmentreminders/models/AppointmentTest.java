@@ -7,7 +7,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
