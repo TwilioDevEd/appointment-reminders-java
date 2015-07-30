@@ -100,12 +100,14 @@ public class AppointmentController {
     };
 
     private void scheduleJob (Appointment appointment) {
+        String appointmentId = appointment.getId().toString();
         JobDetail job = newJob(AppointmentScheduler.class)
-                .withIdentity("Appointment_" + appointment.getId().toString())
+                .withIdentity("Appointment_J_" + appointmentId)
+                .usingJobData("appointmentId", appointmentId)
                 .build();
 
         Trigger trigger = newTrigger()
-                .withIdentity(triggerKey("myTrigger", "myTriggerGroup"))
+                .withIdentity("Appointment_T_" + appointmentId)
                 .startNow()
                 .build();
 
@@ -114,7 +116,6 @@ public class AppointmentController {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-        System.out.println(appointment.getId());
     }
 
     private List<String> timeZones() {
