@@ -2,12 +2,14 @@ package com.twilio.appointmentreminders.controllers;
 
 import com.twilio.appointmentreminders.models.Appointment;
 import com.twilio.appointmentreminders.models.AppointmentService;
+import com.twilio.appointmentreminders.util.AppointmentScheduler;
 import com.twilio.appointmentreminders.util.FieldValidator;
 import com.twilio.appointmentreminders.util.TimeZones;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.quartz.*;
 import spark.ModelAndView;
 import spark.Route;
 import spark.TemplateViewRoute;
@@ -16,14 +18,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.quartz.DateBuilder.futureDate;
+import static org.quartz.JobBuilder.*;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
+import static org.quartz.TriggerKey.triggerKey;
+
 public class AppointmentController {
+    private AppointmentService service;
+    private Scheduler scheduler;
+
+    public AppointmentController(AppointmentService service, Scheduler scheduler) {
+        this.service = service;
+        this.scheduler = scheduler;
+    }
+
     public TemplateViewRoute renderCreatePage = (request, response) -> {
         Map map = new HashMap();
 
         map.put("zones", timeZones());
         return new ModelAndView(map, "new.mustache");
     };
-    private AppointmentService service;
+
     public TemplateViewRoute create = (request, response) -> {
         FieldValidator validator = new FieldValidator(
                 new String[]{"name", "phoneNumber", "date", "delta", "timeZone"}
@@ -49,6 +65,8 @@ public class AppointmentController {
 
                 Appointment appointment = new Appointment(name, phoneNumber, delta, dateUTC, timeZone);
                 service.create(appointment);
+
+                scheduleJob(appointment);
 
                 response.redirect("/");
             } catch (NumberFormatException e) {
@@ -81,8 +99,22 @@ public class AppointmentController {
         return response;
     };
 
-    public AppointmentController(AppointmentService service) {
-        this.service = service;
+    private void scheduleJob (Appointment appointment) {
+        JobDetail job = newJob(AppointmentScheduler.class)
+                .withIdentity("Appointment_" + appointment.getId().toString())
+                .build();
+
+        Trigger trigger = newTrigger()
+                .withIdentity(triggerKey("myTrigger", "myTriggerGroup"))
+                .startNow()
+                .build();
+
+        try {
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        System.out.println(appointment.getId());
     }
 
     private List<String> timeZones() {
