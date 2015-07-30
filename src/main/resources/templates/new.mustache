@@ -15,30 +15,30 @@
 
     {{$content}}
     <h2>Create New Appointment</h2>
-    <form name="formAppointment" id="formAppointment" method="POST" class="form-horizontal col-lg-5" action="create">
+    <form name="formAppointment" id="formAppointment" method="POST" class="form-horizontal col-lg-5" action="create" data-parsley-validate>
         <div class="form-group">
-            <label for="inputName" class="col-sm-4 control-label">Name</label>
+            <label for="inputName" class="col-sm-4 control-label">Name *</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name">
+                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name" required>
             </div>
         </div>
         <div class="form-group">
             <label for="inputPhoneNumber" class="col-sm-4 control-label">Phone Number</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="phoneNumber" id="inputPhoneNumber" placeholder="Phone Number">
+                <input type="text" class="form-control" name="phoneNumber" id="inputPhoneNumber" placeholder="Phone Number" required>
             </div>
         </div>
         <div class="form-group">
             <label for="inputDate" class="col-sm-4 control-label">Appointment Date</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="date" id="inputDate" placeholder="Pick a Date">
+                <input type="text" class="form-control" name="date" id="inputDate" placeholder="Pick a Date" required>
             </div>
         </div>
         <div class="form-group">
             <label for="selectDelta" class="col-sm-4 control-label">Notification Time</label>
             <div class="col-sm-8">
-                <select name="delta" id="selectDelta" class="form-control">
-                    <option>Select a time</option>
+                <select name="delta" id="selectDelta" class="form-control"  required>
+                    <option value="">Select a time</option>
                     <option value="15">15 Minutes</option>
                     <option value="30">30 Minutes</option>
                     <option value="45">45 Minutes</option>
@@ -49,7 +49,7 @@
         <div class="form-group">
             <label for="selectTimeZone" class="col-sm-4 control-label">Time Zone</label>
             <div class="col-sm-8">
-                <select name="timeZone" id="selectTimeZone" class="form-control">
+                <select name="timeZone" id="selectTimeZone" class="form-control" required>
                     {{#zones}}
                         {{#.}}
                         <option value="{{.}}">{{.}}</option>

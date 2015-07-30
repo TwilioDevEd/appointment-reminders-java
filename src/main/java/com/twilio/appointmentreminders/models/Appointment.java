@@ -50,7 +50,7 @@ public class Appointment {
     }
 
     public String getPhoneNumber() {
-        return this.name;
+        return this.phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {

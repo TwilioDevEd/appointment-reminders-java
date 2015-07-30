@@ -25,7 +25,7 @@ public class Server {
 
         get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
 
-        post("/create", controller.create);
+        post("/create", controller.create, new MustacheTemplateEngine());
 
         post("/delete", controller.delete);
     }
