@@ -29,7 +29,7 @@ public class Server {
             scheduler.start();
 
         } catch (SchedulerException se) {
-            se.printStackTrace();
+            System.out.println("Unable to start scheduler service");
         }
 
         AppointmentController controller = new AppointmentController(service, scheduler);

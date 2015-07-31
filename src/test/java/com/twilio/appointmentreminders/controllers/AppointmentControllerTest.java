@@ -5,17 +5,16 @@ import com.twilio.appointmentreminders.models.Appointment;
 import com.twilio.appointmentreminders.models.AppointmentService;
 import com.twilio.appointmentreminders.util.EntityManagerBuilder;
 import com.twilio.appointmentreminders.util.RequestHandler;
+import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.apache.http.NameValuePair;
 import spark.Spark;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 

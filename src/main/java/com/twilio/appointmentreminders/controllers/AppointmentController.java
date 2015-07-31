@@ -66,11 +66,15 @@ public class AppointmentController {
             new FieldValidator(new String[] {"name", "phoneNumber", "date", "delta", "timeZone"});
 
         if (validator.valid(request)) {
-            try {
                 String name = request.queryParams("name");
                 String phoneNumber = request.queryParams("phoneNumber");
                 String date = request.queryParams("date");
-                int delta = Integer.parseInt(request.queryParams("delta"));
+                int delta = 0;
+                try {
+                    delta = Integer.parseInt(request.queryParams("delta"));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid format number for appointment delta");
+                }
                 String timeZone = request.queryParams("timeZone");
 
                 DateTimeZone zone = DateTimeZone.forID(timeZone);
@@ -90,9 +94,6 @@ public class AppointmentController {
                 scheduleJob(appointment);
 
                 response.redirect("/");
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
         }
 
         Map map = new HashMap();
@@ -121,7 +122,7 @@ public class AppointmentController {
         try {
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
-            e.printStackTrace();
+            System.out.println("Unable to schedule the Job");
         }
     }
 
