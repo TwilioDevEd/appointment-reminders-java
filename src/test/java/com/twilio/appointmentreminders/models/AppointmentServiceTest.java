@@ -1,24 +1,39 @@
 package com.twilio.appointmentreminders.models;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.twilio.appointmentreminders.util.EntityManagerBuilder;
+import org.junit.*;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class AppointmentServiceTest {
+    private static EntityManagerFactory emFactory;
+    private static EntityManager em;
+    private static AppointmentService service;
 
-    private AppointmentService service;
+    @BeforeClass
+    public static void createService() {
+        emFactory = EntityManagerBuilder.getFactory();
+        em = emFactory.createEntityManager();
+        service = new AppointmentService(em);
+    }
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        if (em != null) {
+            em.close();
+        }
+        if (emFactory != null) {
+            emFactory.close();
+        }
+    }
 
     @Before
-    public void createService() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("Appointments-Persistence-Test");
-        service = new AppointmentService(factory.createEntityManager());
+    public void cleanUp() {
         service.deleteAll();
     }
 

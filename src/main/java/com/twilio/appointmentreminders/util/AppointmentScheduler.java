@@ -17,20 +17,24 @@ import org.quartz.JobExecutionException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AppointmentScheduler implements Job {
-    public static final String ACCOUNT_SID = "AC2e4e4f0260f05ed5b45049894be0ed2d";
-    public static final String AUTH_TOKEN = "be356ddfbe22fdef22eebbd44cb0bdad";
-    public static final String TWILIO_PHONE_NUMBER = "+15075735022";
 
+    static Map<String, String> env = System.getenv();
 
-    EntityManagerFactory factory = Persistence.createEntityManagerFactory("Appointments-Persistence");
-    AppointmentService service = new AppointmentService(factory.createEntityManager());
+    public static final String ACCOUNT_SID = env.get("ACCOUNT_SID");
+    public static final String AUTH_TOKEN = env.get("AUTH_TOKEN");
+    public static final String TWILIO_PHONE_NUMBER = env.get("TWILIO_PHONE_NUMBER");
 
     public AppointmentScheduler() {
     }
     public void execute(JobExecutionContext context) throws JobExecutionException {
+        EntityManagerFactory factory = EntityManagerBuilder.getFactory();
+        AppointmentService service = new AppointmentService(factory.createEntityManager());
+
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();

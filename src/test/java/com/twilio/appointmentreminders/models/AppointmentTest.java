@@ -1,37 +1,48 @@
 package com.twilio.appointmentreminders.models;
 
-import org.junit.After;
+import com.twilio.appointmentreminders.util.EntityManagerBuilder;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import static org.junit.Assert.assertTrue;
 
 public class AppointmentTest {
-    private EntityManagerFactory emFactory;
-    private EntityManager em;
+    private static EntityManagerFactory emFactory;
+    private static EntityManager em;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUp() throws Exception {
         try {
-            emFactory = Persistence.createEntityManagerFactory("Appointments-Persistence-Test");
+            emFactory = EntityManagerBuilder.getFactory();
             em = emFactory.createEntityManager();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Unable to create Entity Manager");
         }
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterClass
+    public static void tearDown() throws Exception {
         if (em != null) {
             em.close();
         }
         if (emFactory != null) {
             emFactory.close();
         }
+    }
+
+    @Before
+    public void cleanUp() {
+        getTransaction().begin();
+        Query query = em.createQuery("DELETE FROM Appointment");
+        query.executeUpdate();
+        getTransaction().commit();
     }
 
     @Test
@@ -48,5 +59,9 @@ public class AppointmentTest {
             em.getTransaction().rollback();
             ex.printStackTrace();
         }
+    }
+
+    private EntityTransaction getTransaction() {
+        return em.getTransaction();
     }
 }
