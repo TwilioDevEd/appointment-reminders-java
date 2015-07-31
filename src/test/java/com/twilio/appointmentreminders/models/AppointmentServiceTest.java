@@ -41,7 +41,7 @@ public class AppointmentServiceTest {
         assertThat(service.count(), is(0L));
 
         Appointment appointment =
-            new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM",
+            new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM",
                 "America/Guayaquil");
         service.create(appointment);
 
@@ -50,7 +50,7 @@ public class AppointmentServiceTest {
 
     @Test public void testDeleteAll() {
         Appointment appointment =
-            new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM",
+            new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM",
                 "America/Guayaquil");
         service.create(appointment);
 
@@ -68,7 +68,7 @@ public class AppointmentServiceTest {
 
     @Test public void testFindAll() {
         Appointment appointment =
-            new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM",
+            new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM",
                 "America/Guayaquil");
         service.create(appointment);
 
@@ -84,7 +84,7 @@ public class AppointmentServiceTest {
 
     @Test public void testCount() {
         Appointment appointment =
-            new Appointment("Mario", "+593999031619", 1000, "08-07-2015 12:00AM",
+            new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM",
                 "America/Guayaquil");
         service.create(appointment);
 
