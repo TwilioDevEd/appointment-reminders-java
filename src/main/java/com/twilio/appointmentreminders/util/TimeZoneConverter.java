@@ -19,4 +19,18 @@ public class TimeZoneConverter {
 
         return adjustedDate;
     }
+
+    public static String getDateToUTC(String date, String timeZone) {
+        DateTimeZone zone = DateTimeZone.forID(timeZone);
+        DateTimeZone zoneUTC = DateTimeZone.UTC;
+
+        DateTime dt;
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy hh:mma");
+        formatter = formatter.withZone(zone);
+        dt = formatter.parseDateTime(date);
+        formatter = formatter.withZone(zoneUTC);
+        String adjustedDate = dt.toString(formatter);
+
+        return adjustedDate;
+    }
 }

@@ -9,20 +9,21 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.quartz.*;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import spark.ModelAndView;
 import spark.Route;
 import spark.TemplateViewRoute;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.quartz.DateBuilder.futureDate;
 import static org.quartz.JobBuilder.*;
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
-import static org.quartz.TriggerKey.triggerKey;
 
 public class AppointmentController {
     private AppointmentService service;
@@ -99,8 +100,16 @@ public class AppointmentController {
         return response;
     };
 
-    private void scheduleJob (Appointment appointment) {
+    private void scheduleJob(Appointment appointment) {
         String appointmentId = appointment.getId().toString();
+
+        DateTimeZone zone = DateTimeZone.forID(appointment.getTimeZone());
+        DateTime dt;
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy hh:mma");
+        formatter = formatter.withZone(zone);
+        dt = formatter.parseDateTime(appointment.getDate());
+        Date finalDate = dt.minusMinutes(appointment.getDelta()).toDate();
+
         JobDetail job = newJob(AppointmentScheduler.class)
                 .withIdentity("Appointment_J_" + appointmentId)
                 .usingJobData("appointmentId", appointmentId)
@@ -108,7 +117,7 @@ public class AppointmentController {
 
         Trigger trigger = newTrigger()
                 .withIdentity("Appointment_T_" + appointmentId)
-                .startNow()
+                .startAt(finalDate)
                 .build();
 
         try {

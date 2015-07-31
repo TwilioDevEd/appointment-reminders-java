@@ -1,5 +1,7 @@
 package com.twilio.appointmentreminders.models;
 
+import com.twilio.appointmentreminders.util.TimeZoneConverter;
+
 import javax.persistence.*;
 
 @Entity
@@ -66,7 +68,7 @@ public class Appointment {
     }
 
     public String getDate() {
-        return this.date;
+        return TimeZoneConverter.getDateFromUTC(this.date, this.timeZone);
     }
 
     public void setDate(String date) {
