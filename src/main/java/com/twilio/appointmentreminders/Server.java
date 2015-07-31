@@ -10,10 +10,6 @@ import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static spark.Spark.get;
 import static spark.Spark.post;

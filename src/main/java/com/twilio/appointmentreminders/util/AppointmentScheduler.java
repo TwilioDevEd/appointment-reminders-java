@@ -8,16 +8,13 @@ import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +28,7 @@ public class AppointmentScheduler implements Job {
 
     public AppointmentScheduler() {
     }
+
     public void execute(JobExecutionContext context) throws JobExecutionException {
         EntityManagerFactory factory = EntityManagerBuilder.getFactory();
         AppointmentService service = new AppointmentService(factory.createEntityManager());
@@ -43,13 +41,15 @@ public class AppointmentScheduler implements Job {
 
         Appointment appointment = service.getAppointment(Long.parseLong(appointmentId, 10));
         if (appointment != null) {
+            String name = appointment.getName();
             String phoneNumber = appointment.getPhoneNumber();
             String date = appointment.getDate();
             String timeZone = appointment.getTimeZone();
+            String messageBody = "Remember: " + name + ", on " + date + " " + timeZone;
 
             // Build a filter for the MessageList
             List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("Body", "You have an appointment on " + date + " " + timeZone));
+            params.add(new BasicNameValuePair("Body", messageBody));
             params.add(new BasicNameValuePair("To", phoneNumber));
             params.add(new BasicNameValuePair("From", TWILIO_PHONE_NUMBER));
 
@@ -59,7 +59,8 @@ public class AppointmentScheduler implements Job {
                 message = messageFactory.create(params);
                 System.out.println(message.getSid());
             } catch (TwilioRestException e) {
-                e.printStackTrace();
+                System.out.println(
+                    "An error occurred while trying to send the message: " + e.getMessage());
             }
         }
     }

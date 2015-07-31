@@ -1,43 +1,43 @@
 {{! index.mustache }}
 {{<base}}
-    {{$header}}
-        {{<header}}
-            {{$title}}Appointments{{/title}}
-        {{/header}}
-    {{/header}}
+{{$header}}
+{{<header}}
+{{$title}}Appointments{{/title}}
+{{/header}}
+{{/header}}
 
-    {{$content}}
-    <table class="table">
-        <thead>
-        <th>Name</th>
-        <th>Phone number</th>
-        <th>Appointment time</th>
-        <th>Reminder time</th>
-        <th>Timezone</th>
-        <th>Actions</th>
-        </thead>
+{{$content}}
+<table class="table">
+    <thead>
+    <th>Name</th>
+    <th>Phone number</th>
+    <th>Appointment time</th>
+    <th>Reminder time</th>
+    <th>Timezone</th>
+    <th>Actions</th>
+    </thead>
     <tbody>
-        {{#appointments}}
-            <tr>
-                <td>{{name}}</td>
-                <td>{{phoneNumber}}</td>
-                <td>{{date}}</td>
-                <td>{{delta}}</td>
-                <td>{{timeZone}}</td>
-                <td>
-                    <form method="POST" action="delete">
-                        <input type="hidden" name="id" value="{{id}}"/>
-                        <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {{/appointments}}
+    {{#appointments}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{phoneNumber}}</td>
+            <td>{{date}}</td>
+            <td>{{delta}}</td>
+            <td>{{timeZone}}</td>
+            <td>
+                <form method="POST" action="delete">
+                    <input type="hidden" name="id" value="{{id}}"/>
+                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {{/appointments}}
     </tbody>
-    </table>
-        {{^appointments}}
-        <div class="well">
-            There are no appointment reminders scheduled.
-        </div>
-        {{/appointments}}
-    {{/content}}
+</table>
+{{^appointments}}
+    <div class="well">
+        There are no appointment reminders scheduled.
+    </div>
+{{/appointments}}
+{{/content}}
 {{/base}}

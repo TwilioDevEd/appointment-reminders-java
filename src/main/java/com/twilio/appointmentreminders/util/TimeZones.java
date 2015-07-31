@@ -4,9 +4,10 @@ import java.util.*;
 
 public class TimeZones {
     private static final String TIMEZONE_ID_PREFIXES =
-            "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";
+        "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";
 
     private List<String> timeZones = null;
+
     public List<String> getTimeZones() {
         if (timeZones == null) {
             initTimeZones();

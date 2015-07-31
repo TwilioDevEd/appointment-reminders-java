@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.quartz.JobBuilder.*;
+import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 public class AppointmentController {
-    private AppointmentService service;
     private Scheduler scheduler;
+    private AppointmentService service;
 
     public AppointmentController(AppointmentService service, Scheduler scheduler) {
         this.service = service;
@@ -41,10 +41,29 @@ public class AppointmentController {
         return new ModelAndView(map, "new.mustache");
     };
 
+    public TemplateViewRoute index = (request, response) -> {
+        Map map = new HashMap();
+
+        List<Appointment> appointments = service.findAll();
+        map.put("appointments", appointments);
+
+        return new ModelAndView(map, "index.mustache");
+    };
+
+    public Route delete = (request, response) -> {
+        String id = request.queryParams("id");
+        Long idLong = Long.parseLong(id, 10);
+
+        Appointment appointment = service.getAppointment(idLong);
+        service.delete(appointment);
+
+        response.redirect("/");
+        return response;
+    };
+
     public TemplateViewRoute create = (request, response) -> {
-        FieldValidator validator = new FieldValidator(
-                new String[]{"name", "phoneNumber", "date", "delta", "timeZone"}
-        );
+        FieldValidator validator =
+            new FieldValidator(new String[] {"name", "phoneNumber", "date", "delta", "timeZone"});
 
         if (validator.valid(request)) {
             try {
@@ -64,7 +83,8 @@ public class AppointmentController {
                 formatter = formatter.withZone(zoneUTC);
                 String dateUTC = dt.toString(formatter);
 
-                Appointment appointment = new Appointment(name, phoneNumber, delta, dateUTC, timeZone);
+                Appointment appointment =
+                    new Appointment(name, phoneNumber, delta, dateUTC, timeZone);
                 service.create(appointment);
 
                 scheduleJob(appointment);
@@ -81,25 +101,6 @@ public class AppointmentController {
         return new ModelAndView(map, "new.mustache");
     };
 
-    public TemplateViewRoute index = (request, response) -> {
-        Map map = new HashMap();
-
-        List<Appointment> appointments = service.findAll();
-        map.put("appointments", appointments);
-
-        return new ModelAndView(map, "index.mustache");
-    };
-    public Route delete = (request, response) -> {
-        String id = request.queryParams("id");
-        Long idLong = Long.parseLong(id, 10);
-
-        Appointment appointment = service.getAppointment(idLong);
-        service.delete(appointment);
-
-        response.redirect("/");
-        return response;
-    };
-
     private void scheduleJob(Appointment appointment) {
         String appointmentId = appointment.getId().toString();
 
@@ -110,15 +111,12 @@ public class AppointmentController {
         dt = formatter.parseDateTime(appointment.getDate());
         Date finalDate = dt.minusMinutes(appointment.getDelta()).toDate();
 
-        JobDetail job = newJob(AppointmentScheduler.class)
-                .withIdentity("Appointment_J_" + appointmentId)
-                .usingJobData("appointmentId", appointmentId)
-                .build();
+        JobDetail job =
+            newJob(AppointmentScheduler.class).withIdentity("Appointment_J_" + appointmentId)
+                .usingJobData("appointmentId", appointmentId).build();
 
-        Trigger trigger = newTrigger()
-                .withIdentity("Appointment_T_" + appointmentId)
-                .startAt(finalDate)
-                .build();
+        Trigger trigger =
+            newTrigger().withIdentity("Appointment_T_" + appointmentId).startAt(finalDate).build();
 
         try {
             scheduler.scheduleJob(job, trigger);

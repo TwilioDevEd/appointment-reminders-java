@@ -4,28 +4,18 @@ import com.twilio.appointmentreminders.util.TimeZoneConverter;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "appointments")
-public class Appointment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+@Entity @Table(name = "appointments") public class Appointment {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id") private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "name") private String name;
 
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    @Column(name = "phoneNumber") private String phoneNumber;
 
-    @Column(name = "delta")
-    private int delta;
+    @Column(name = "delta") private int delta;
 
-    @Column(name = "date")
-    private String date;
+    @Column(name = "date") private String date;
 
-    @Column(name = "timeZone")
-    private String timeZone;
+    @Column(name = "timeZone") private String timeZone;
 
     public Appointment() {
 
