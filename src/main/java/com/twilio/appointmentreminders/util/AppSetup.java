@@ -9,18 +9,17 @@ import java.util.Map;
 
 public class AppSetup {
     private Map<String, String> env;
-    String port = env.get("PORT");
 
     public AppSetup() {
         this.env = System.getenv();
     }
 
-    public EntityManagerFactory getEntityManagerFactory() {
-        Map<String, String> configOverrides = new HashMap<>();
+    public Map<String, String> getParamsFromDBURL(String url) {
+        Map<String, String> params = new HashMap<>();
         URI dbUri = null;
 
         try {
-            dbUri = new URI(env.get("DATABASE_URL"));
+            dbUri = new URI(url);
         } catch (URISyntaxException e) {
             System.out.println("Unable to parse DB URL");
         }
@@ -30,9 +29,22 @@ public class AppSetup {
         String dbUrl =
             "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-        configOverrides.put("javax.persistence.jdbc.url", dbUrl);
-        configOverrides.put("javax.persistence.jdbc.user", username);
-        configOverrides.put("javax.persistence.jdbc.password", password);
+        params.put("url", dbUrl);
+        params.put("username", username);
+        params.put("password", password);
+
+        return params;
+    }
+
+    public EntityManagerFactory getEntityManagerFactory() {
+        AppSetup appSetup = new AppSetup();
+        Map<String, String> configOverrides = new HashMap<>();
+
+        Map<String, String> params = appSetup.getParamsFromDBURL(env.get("DATABASE_URL"));
+
+        configOverrides.put("javax.persistence.jdbc.url", params.get("url"));
+        configOverrides.put("javax.persistence.jdbc.user", params.get("username"));
+        configOverrides.put("javax.persistence.jdbc.password", params.get("password"));
 
         return Persistence.createEntityManagerFactory("Appointments-Persistence", configOverrides);
     }
@@ -45,6 +57,10 @@ public class AppSetup {
         } else {
             return 4567;
         }
+    }
+
+    public String getDatabaseURL() {
+        return env.get("DATABASE_URL");
     }
 
     public String getACCOUNT_SID() {
