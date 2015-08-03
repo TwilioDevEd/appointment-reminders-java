@@ -70,15 +70,15 @@ public class AppSetup {
         return env.get("DATABASE_URL");
     }
 
-    public String getACCOUNT_SID() {
+    public String getAccountSid() {
         return env.get("TWILIO_ACCOUNT_SID");
     }
 
-    public String getAUTH_TOKEN() {
+    public String getAuthToken() {
         return env.get("TWILIO_AUTH_TOKEN");
     }
 
-    public String getTWILIO_PHONE_NUMBER() {
+    public String getTwilioPhoneNumber() {
         return env.get("TWILIO_PHONE_NUMBER");
     }
 }

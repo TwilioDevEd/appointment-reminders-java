@@ -27,7 +27,7 @@ The database schema is managed using [Flyway](https://github.com/flyway/flyway).
 
 Migrate the database:
 ```
-mvn compile flyway:migrate
+mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Migrator"
 ```
 ## Running the application
 
@@ -43,7 +43,7 @@ previous command to work
 
 Assuming you have configured the application for your local test
 environment, you can then use Flyway to migrate the test database
-(by setting the correct `DB_URL`) and then use Maven
+(by setting the correct `DATABASE_URL`) and then use Maven
 to run the tests:
 
 ```
