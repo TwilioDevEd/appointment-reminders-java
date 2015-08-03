@@ -60,23 +60,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <url>${env.DB_URL}</url>
-                    <user>${env.DB_USER}</user>
-                    <password>${env.DB_PASSWORD}</password>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>9.1-901-1.jdbc4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 
