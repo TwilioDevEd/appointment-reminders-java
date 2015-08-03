@@ -3,7 +3,7 @@ package com.twilio.appointmentreminders.controllers;
 import com.twilio.appointmentreminders.Server;
 import com.twilio.appointmentreminders.models.Appointment;
 import com.twilio.appointmentreminders.models.AppointmentService;
-import com.twilio.appointmentreminders.util.EntityManagerBuilder;
+import com.twilio.appointmentreminders.util.AppSetup;
 import com.twilio.appointmentreminders.util.RequestHandler;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,7 +34,8 @@ public class AppointmentControllerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        emFactory = EntityManagerBuilder.getFactory();
+        AppSetup appSetup = new AppSetup();
+        emFactory = appSetup.getEntityManagerFactory();
         em = emFactory.createEntityManager();
         service = new AppointmentService(em);
     }

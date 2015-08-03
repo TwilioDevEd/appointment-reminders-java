@@ -1,6 +1,6 @@
 package com.twilio.appointmentreminders.models;
 
-import com.twilio.appointmentreminders.util.EntityManagerBuilder;
+import com.twilio.appointmentreminders.util.AppSetup;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,7 +19,8 @@ public class AppointmentServiceTest {
     private static AppointmentService service;
 
     @BeforeClass public static void createService() {
-        emFactory = EntityManagerBuilder.getFactory();
+        AppSetup appSetup = new AppSetup();
+        emFactory = appSetup.getEntityManagerFactory();
         em = emFactory.createEntityManager();
         service = new AppointmentService(em);
     }

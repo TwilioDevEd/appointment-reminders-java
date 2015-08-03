@@ -2,7 +2,7 @@ package com.twilio.appointmentreminders;
 
 import com.twilio.appointmentreminders.controllers.AppointmentController;
 import com.twilio.appointmentreminders.models.AppointmentService;
-import com.twilio.appointmentreminders.util.EntityManagerBuilder;
+import com.twilio.appointmentreminders.util.AppSetup;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -13,18 +13,14 @@ import javax.persistence.EntityManagerFactory;
 import static spark.Spark.*;
 import spark.*;
 
-import java.util.Map;
-
 public class Server {
 
     public static void main(String[] args) {
-        Map<String, String> env = System.getenv();
-        String port = env.get("PORT");
-        if (port != null) {
-            port(Integer.parseInt(port));
-        }
+        AppSetup appSetup = new AppSetup();
 
-        EntityManagerFactory factory = EntityManagerBuilder.getFactory();
+        port(appSetup.getPortNumber());
+
+        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
         AppointmentService service = new AppointmentService(factory.createEntityManager());
 
         Spark.staticFileLocation("/public");

@@ -19,18 +19,19 @@ import java.util.List;
 import java.util.Map;
 
 public class AppointmentScheduler implements Job {
+    private static AppSetup appSetup = new AppSetup();
 
-    static Map<String, String> env = System.getenv();
-
-    public static final String ACCOUNT_SID = env.get("TWILIO_ACCOUNT_SID");
-    public static final String AUTH_TOKEN = env.get("TWILIO_AUTH_TOKEN");
-    public static final String TWILIO_PHONE_NUMBER = env.get("TWILIO_PHONE_NUMBER");
+    public static final String ACCOUNT_SID = appSetup.getACCOUNT_SID();
+    public static final String AUTH_TOKEN = appSetup.getAUTH_TOKEN();
+    public static final String TWILIO_PHONE_NUMBER = appSetup.getTWILIO_PHONE_NUMBER();
 
     public AppointmentScheduler() {
     }
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        EntityManagerFactory factory = EntityManagerBuilder.getFactory();
+        AppSetup appSetup = new AppSetup();
+
+        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
         AppointmentService service = new AppointmentService(factory.createEntityManager());
 
         TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
