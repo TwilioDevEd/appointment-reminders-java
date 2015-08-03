@@ -22,8 +22,8 @@ public class AppointmentScheduler implements Job {
 
     static Map<String, String> env = System.getenv();
 
-    public static final String ACCOUNT_SID = env.get("ACCOUNT_SID");
-    public static final String AUTH_TOKEN = env.get("AUTH_TOKEN");
+    public static final String ACCOUNT_SID = env.get("TWILIO_ACCOUNT_SID");
+    public static final String AUTH_TOKEN = env.get("TWILIO_AUTH_TOKEN");
     public static final String TWILIO_PHONE_NUMBER = env.get("TWILIO_PHONE_NUMBER");
 
     public AppointmentScheduler() {
