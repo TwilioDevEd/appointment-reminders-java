@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/appointment-reminders-java.svg)](https://travis-ci.org/TwilioDevEd/appointment-reminders-java)
 
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Installing dependencies
 
 This app runs on JAVA 8, and has been tested on version 1.8.0_51

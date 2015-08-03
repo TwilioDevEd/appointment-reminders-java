@@ -1,5 +1,5 @@
 {
-  "name": "Appointment Reminders JAVA",
+  "name": "Appointment Reminders Java",
   "description": "Notify customers of upcoming appointments",
   "keywords": [
     "twilio",
@@ -18,12 +18,12 @@
     "TWILIO_AUTH_TOKEN": {
       "description": "API password - find your auth token at https://www.twilio.com/user/account/voice-messaging"
     },
-    "TWILIO_NUMBER": {
+    "TWILIO_PHONE_NUMBER": {
       "description": "A number in your Twilio account to use with this application in E.164 format (e.g. +16518675309) - view your numbers at https://www.twilio.com/user/account/phone-numbers/incoming"
     }
   },
-  "website": "https://github.com/TwilioDevEd/appointment-reminders-",
-  "repository": "https://github.com/TwilioDevEd/appointment-reminders-flask",
+  "website": "https://github.com/TwilioDevEd/appointment-reminders-java",
+  "repository": "https://github.com/TwilioDevEd/appointment-reminders-java",
   "logo": "https://s3.amazonaws.com/howtodocs/twilio-logo.png",
-  "success_url": "/appointment"
+  "success_url": "/"
 }
