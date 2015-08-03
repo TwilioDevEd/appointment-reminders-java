@@ -1,1 +1,1 @@
-web: java -jar target/server.jar
+web: java -cp "target/dependency/*":target/classes Server

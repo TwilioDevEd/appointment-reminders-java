@@ -6,17 +6,24 @@ import com.twilio.appointmentreminders.util.EntityManagerBuilder;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
-import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
+import spark.*;
+
+import java.util.Map;
 
 public class Server {
 
     public static void main(String[] args) {
+        Map<String, String> env = System.getenv();
+        String port = env.get("PORT");
+        if (port != null) {
+            port(Integer.parseInt(port));
+        }
+
         EntityManagerFactory factory = EntityManagerBuilder.getFactory();
         AppointmentService service = new AppointmentService(factory.createEntityManager());
 
