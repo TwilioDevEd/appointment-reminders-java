@@ -1,2 +1,1 @@
-web: java -cp "target/dependency/*":target/classes Server
-migrate: java -cp target/classes:target/dependency/* Migrator
+web: java -cp target/classes:target/server.jar com.twilio.appointmentreminders.Server
