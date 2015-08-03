@@ -23,9 +23,16 @@ public class AppSetup {
         } catch (URISyntaxException e) {
             System.out.println("Unable to parse DB URL");
         }
-
+        String[] userInfo = dbUri.getUserInfo().split(":");
         String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
+        String password = null;
+        if (userInfo.length > 1) {
+            password = dbUri.getUserInfo().split(":")[1];
+        }
+        else {
+            password = "";
+        }
+
         String dbUrl =
             "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
@@ -40,7 +47,7 @@ public class AppSetup {
         AppSetup appSetup = new AppSetup();
         Map<String, String> configOverrides = new HashMap<>();
 
-        Map<String, String> params = appSetup.getParamsFromDBURL(env.get("DATABASE_URL"));
+        Map<String, String> params = appSetup.getParamsFromDBURL(getDatabaseURL());
 
         configOverrides.put("javax.persistence.jdbc.url", params.get("url"));
         configOverrides.put("javax.persistence.jdbc.user", params.get("username"));
