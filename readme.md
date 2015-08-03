@@ -1,5 +1,7 @@
 # Twilio's Appointment Reminders with Java
 
+[![Build Status](https://travis-ci.org/TwilioDevEd/appointment-reminders-java.svg)](https://travis-ci.org/TwilioDevEd/appointment-reminders-java)
+
 ## Installing dependencies
 
 This app runs on JAVA 8, and has been tested on version 1.8.0_51
