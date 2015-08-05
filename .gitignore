@@ -1,5 +1,8 @@
 .DS_Store
 .idea/*
+.settings
+.project
+.classpath
 out/
 target/
 twilio-appointment-reminders.iml
