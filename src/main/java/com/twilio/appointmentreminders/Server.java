@@ -15,34 +15,34 @@ import spark.*;
 
 public class Server {
 
-    public static void main(String[] args) {
-        AppSetup appSetup = new AppSetup();
+  public static void main(String[] args) {
+    AppSetup appSetup = new AppSetup();
 
-        port(appSetup.getPortNumber());
+    port(appSetup.getPortNumber());
 
-        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
-        AppointmentService service = new AppointmentService(factory.createEntityManager());
+    EntityManagerFactory factory = appSetup.getEntityManagerFactory();
+    AppointmentService service = new AppointmentService(factory.createEntityManager());
 
-        Spark.staticFileLocation("/public");
+    Spark.staticFileLocation("/public");
 
-        Scheduler scheduler = null;
-        try {
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
+    Scheduler scheduler = null;
+    try {
+      scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-            scheduler.start();
+      scheduler.start();
 
-        } catch (SchedulerException se) {
-            System.out.println("Unable to start scheduler service");
-        }
-
-        AppointmentController controller = new AppointmentController(service, scheduler);
-
-        get("/", controller.index, new MustacheTemplateEngine());
-
-        get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
-
-        post("/create", controller.create, new MustacheTemplateEngine());
-
-        post("/delete", controller.delete);
+    } catch (SchedulerException se) {
+      System.out.println("Unable to start scheduler service");
     }
+
+    AppointmentController controller = new AppointmentController(service, scheduler);
+
+    get("/", controller.index, new MustacheTemplateEngine());
+
+    get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
+
+    post("/create", controller.create, new MustacheTemplateEngine());
+
+    post("/delete", controller.delete);
+  }
 }
