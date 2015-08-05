@@ -1,4 +1,4 @@
-# Twilio's Appointment Reminders with Java
+# Appointment Reminders with Java
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/appointment-reminders-java.svg)](https://travis-ci.org/TwilioDevEd/appointment-reminders-java)
 
@@ -8,11 +8,11 @@
 
 ## Installing dependencies
 
-This app runs on JAVA 8, and has been tested on version 1.8.0_51
+This app runs on Java 8, and has been tested on version 1.8.0_51. 
 
-You can install dependencies and build the project using:
+You can install dependencies and build the project using [Maven](https://maven.apache.org/):
 ```
-mvn clean install
+mvn clean install -DskipTests
 ```
 
 ## Database migrations
@@ -36,8 +36,6 @@ The application can be run with:
 ```
 mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Server"
 ```
-First, you have set up the environment variables and run the database migrations for the
-previous command to work
 
 ## Run the tests
 
