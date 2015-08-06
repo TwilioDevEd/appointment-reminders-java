@@ -59,8 +59,9 @@ public class AppointmentControllerTest {
 
   @Test
   public void testIndex() {
-    Appointment appointment = new Appointment("Appointment to find", "+593999031123", 1000,
-        "08-07-2015 12:00AM", "America/Guayaquil");
+    Appointment appointment =
+        new Appointment("Appointment to find", "+593999031123", 1000, "08-07-2015 12:00AM",
+            "America/Guayaquil");
     service.create(appointment);
 
     RequestHandler request = new RequestHandler();
@@ -94,8 +95,9 @@ public class AppointmentControllerTest {
 
   @Test
   public void testDelete() {
-    Appointment appointment = new Appointment("Appointment Test", "+593999012345", 1000,
-        "08-07-2015 12:00AM", "America/Guayaquil");
+    Appointment appointment =
+        new Appointment("Appointment Test", "+593999012345", 1000, "08-07-2015 12:00AM",
+            "America/Guayaquil");
     service.create(appointment);
     Long id = appointment.getId();
 

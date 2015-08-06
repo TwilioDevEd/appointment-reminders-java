@@ -6,12 +6,12 @@ import com.twilio.appointmentreminders.util.AppSetup;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
 
 import static spark.Spark.*;
-import spark.*;
 
 public class Server {
 

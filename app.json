@@ -9,8 +9,9 @@
   "scripts": {
     "postdeploy": "java -cp target/classes:target/server.jar com.twilio.appointmentreminders.Migrator"
   },
-  "addons": ["heroku-postgresql:hobby-dev"]
-,
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
   "env": {
     "TWILIO_ACCOUNT_SID": {
       "description": "API username - find your account SID at https://www.twilio.com/user/account/voice-messaging"

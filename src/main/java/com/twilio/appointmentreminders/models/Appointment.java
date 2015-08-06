@@ -27,9 +27,7 @@ public class Appointment {
   @Column(name = "timeZone")
   private String timeZone;
 
-  public Appointment() {
-
-  }
+  public Appointment() {}
 
   public Appointment(String name, String phoneNumber, int delta, String date, String timeZone) {
     this.name = name;
