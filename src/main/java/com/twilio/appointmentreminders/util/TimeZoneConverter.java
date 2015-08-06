@@ -5,6 +5,9 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * Class that handles dates different time zones. Converts date strings from and into UTC format.
+ */
 public class TimeZoneConverter {
   public static String getDateFromUTC(String date, String timeZone) {
     DateTimeZone zone = DateTimeZone.forID(timeZone);

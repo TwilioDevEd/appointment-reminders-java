@@ -5,8 +5,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
+/** Class that provides an abstraction to an Appointment's entity database access */
 public class AppointmentService {
-
   private EntityManager entityManager;
 
   public AppointmentService(EntityManager entityManager) {

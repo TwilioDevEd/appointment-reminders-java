@@ -2,6 +2,7 @@ package com.twilio.appointmentreminders.util;
 
 import java.util.*;
 
+/** Class that returns all the local system's available time zones. */
 public class TimeZones {
   private static final String TIMEZONE_ID_PREFIXES =
       "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";

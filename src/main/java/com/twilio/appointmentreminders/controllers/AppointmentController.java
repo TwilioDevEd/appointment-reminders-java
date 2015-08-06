@@ -25,6 +25,10 @@ import java.util.Map;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+/**
+ * Appointment controller class. Holds all the methods that handle the applications requests.
+ * This methods are mapped to a specific URL on the main Server file of the application.
+ */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class AppointmentController {
   private Scheduler scheduler;
@@ -62,6 +66,10 @@ public class AppointmentController {
     return response;
   };
 
+  /**
+   * Controller method that creates a new appointment. Also, schedules an
+   * appointment reminder once the actual appointment is persisted to the database.
+   */
   public TemplateViewRoute create = (request, response) -> {
     FieldValidator validator =
         new FieldValidator(new String[] {"name", "phoneNumber", "date", "delta", "timeZone"});
@@ -102,6 +110,11 @@ public class AppointmentController {
     return new ModelAndView(map, "new.mustache");
   };
 
+  /**
+   * Schedules a AppointmentScheduler instance to be created and executed in the specified future
+   * date coming from the appointment entity
+   * @param appointment The newly created Appointment that has already been persisted to the DB.
+   */
   private void scheduleJob(Appointment appointment) {
     String appointmentId = appointment.getId().toString();
 

@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * Implementation of a simple for validation that simply validates that a request holds all
+ * necessary parameters.
+ */
 public class FieldValidator {
   private List<String> fields;
 

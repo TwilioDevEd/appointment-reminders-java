@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+/**
+ * Wrapper class that allows the application to perform POST or GET requests to any specified
+ * URL and with any set of arguments. This class is used for testing.
+ */
 public class RequestHandler {
   public final static int GET = 1;
   public final static int POST = 2;
