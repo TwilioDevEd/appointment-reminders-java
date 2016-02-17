@@ -1,5 +1,9 @@
 # Appointment Reminders with Java
 
+This sample application demonstrates how to send appointment reminders to customers when they have an upcoming appointment.
+
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/appointment-reminders/java/spark)!
+
 [![Build Status](https://travis-ci.org/TwilioDevEd/appointment-reminders-java.svg)](https://travis-ci.org/TwilioDevEd/appointment-reminders-java)
 
 ## Deploy to Heroku
