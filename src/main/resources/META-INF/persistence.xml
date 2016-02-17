@@ -5,12 +5,12 @@
     <persistence-unit name="Appointments-Persistence" transaction-type="RESOURCE_LOCAL">
         <class>com.twilio.appointmentreminders.models.Appointment</class>
         <properties>
-            <property name="eclipselink.target-database" value="PostgreSQL" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/appointments" />
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.user" value="appointments" />
-            <property name="javax.persistence.jdbc.password" value="appointments" />
-            <property name="eclipselink.logging.level" value="ALL" />
+            <property name="eclipselink.target-database" value="PostgreSQL"/>
+            <property name="javax.persistence.jdbc.url" value="change_value"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="change_value"/>
+            <property name="javax.persistence.jdbc.password" value="change_value"/>
+            <property name="eclipselink.logging.level" value="ALL"/>
         </properties>
     </persistence-unit>
 </persistence>

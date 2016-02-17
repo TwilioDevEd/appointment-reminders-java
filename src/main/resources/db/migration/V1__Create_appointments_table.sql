@@ -1,7 +1,8 @@
 create table appointments (
-    id int not null PRIMARY KEY,
+    id SERIAL UNIQUE not null PRIMARY KEY,
     name varchar(50) not null,
     phoneNumber varchar(50) not null,
     delta int not null,
-    time timestamp with time zone not null
+    date varchar(20) not null,
+    timeZone varchar(50) not null
 );

@@ -1,1 +1,1 @@
-web: java -jar target/server.jar
+web: java -cp target/classes:target/server.jar com.twilio.appointmentreminders.Server
