@@ -1,0 +1,104 @@
+.chapter(data-title='Appointment Reminders')
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/Server.java')
+      :markdown
+        ## About this application
+
+        This is a Java 8 web application written using [Spark](http://sparkjava.com/)
+        that demonstrates how to send appointment reminders to your customers with
+        Twilio SMS.
+
+        Check out [this application on GitHub](https://github.com/TwilioDevEd/appointment-reminders-java)
+        to download the code and read instructions on how to run it yourself. In
+        this tutorial, we'll show you the key bits of code necessary to drive this
+        use case.
+
+        Let's get started! Click the right arow above to advance the tutorial.
+
+        **See Also:**
+        * [The Twilio Java Helper Library](https://www.twilio.com/docs/java/install)
+        * [Spark micro framework](http://sparkjava.com/)
+        * [EclipseLink](http://www.eclipse.org/eclipselink/)
+        * [Spark's compatible templating engines](http://sparkjava.com/documentation.html#views-templates)
+        * [JUnit](http://junit.org/)
+        * [Joda-Time](http://www.joda.org/joda-time/)
+        * [Quartz Job Scheduler](http://quartz-scheduler.org/)
+        * [Flyway DB Migrations](http://flywaydb.org/)
+
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/Server.java', 
+    data-highlight='42-51')
+    :markdown
+      ## Create the Quartz job scheduler
+
+      The Quartz scheduler is instantiated in the main method of our web
+      application, before we set up the [routes](http://sparkjava.com/documentation.html#routes).
+      We pass a reference to this scheduler to the controller so it can schedule
+      jobs to send out appointment reminders. Note that by default, Quartz temporarily
+      stores jobs in memory, but in production you can configure Quartz to store
+      jobs in a data store of your choice.
+
+      **See Also:**
+      * [Quartz Configuration File](https://github.com/TwilioDevEd/appointment-reminders-java/blob/
+      master/src/main/resources/META-INF/quartz.properties)
+      * [Quartz Documentation](http://quartz-scheduler.org/documentation)
+
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/controllers/AppointmentController.java',
+    data-highlight='69-111')
+    :markdown
+      ## Create an appointment
+
+      This is how a new appointment is created. Once validations pass and the appointment is persisted
+      to the database, a notification is scheduled based on the time of the appointment.
+
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/controllers/AppointmentController.java',
+    data-highlight='113-140')
+      :markdown
+        ## Schedule the reminder job
+
+        The controller uses the injected scheduler to set up a notification. The 
+        `AppointmentScheduler` class is used here to actually send out the notification
+        via SMS.
+
+        **See Also:**
+        * [Quartz Triggers](http://quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/
+        Quartz_Scheduler_Documentation_Set%2Fco-trg_simple_triggers.html%23)
+
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/util/AppointmentScheduler.java', 
+    data-highlight='21-25')
+    :markdown
+      ## Configure the application to send SMS messages
+
+      Every time a scheduled job is triggered by Quartz, an instance of the
+      `AppointmentScheduler` class is created to handle the job. When the class is
+      loaded, we create a `RestClient` to interact with the Twilio API using our 
+      account credentials.
+
+      #### See Also
+      * [The Twilio Java Helper Library](https://www.twilio.com/docs/java/install)
+
+  .step(data-file='src/main/java/com/twilio/appointmentreminders/util/AppointmentScheduler.java', 
+    data-highlight='43-61')
+    :markdown
+      ## Send an SMS message from a background job
+
+      When the `execute` method is called on an `AppointmentScheduler` instance,
+      we use the Twilio REST API client to actually send a formatted reminder
+      message to our customer via SMS.
+
+      #### See Also
+      * [Java SMS quick start](https://www.twilio.com/docs/quickstart/java/sms/sending-via-rest)
+
+  .step
+    :markdown
+      ## Where to next?
+
+      That's it! We've successfully set up automated appointment reminders for our
+      customers, which will be delivered via SMS. If you haven't aready, be sure 
+      to check out the [JavaDoc for the Twilio helper library](http://twilio.github.io/twilio-java/) 
+      and our quick start guides for [SMS](https://www.twilio.com/docs/quickstart/java/sms/sending-via-rest)
+      and [voice](https://www.twilio.com/docs/quickstart/java/rest).
+
+      **Did this help?**
+
+      Thanks for checking out this tutorial! If you have any feedback to share 
+      with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) 
+      to let us know what you think.
