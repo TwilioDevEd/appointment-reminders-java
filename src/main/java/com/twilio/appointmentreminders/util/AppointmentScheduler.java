@@ -47,13 +47,6 @@ public class AppointmentScheduler implements Job {
       String date = appointment.getDate();
       String messageBody = "Remember: " + name + ", on " + date + " you have an appointment!";
 
-      // Build a filter for the MessageList
-      List<NameValuePair> params = new ArrayList<>();
-      params.add(new BasicNameValuePair("Body", messageBody));
-      params.add(new BasicNameValuePair("To", phoneNumber));
-      params.add(new BasicNameValuePair("From", TWILIO_NUMBER));
-
-
       Message message = Message
           .create(new PhoneNumber(phoneNumber), new PhoneNumber(TWILIO_NUMBER), messageBody)
           .execute();
