@@ -1,22 +1,16 @@
 package com.twilio.appointmentreminders.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManagerFactory;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
 import com.twilio.Twilio;
 import com.twilio.appointmentreminders.models.Appointment;
 import com.twilio.appointmentreminders.models.AppointmentService;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import javax.persistence.EntityManagerFactory;
 
 public class AppointmentScheduler implements Job {
   private static AppSetup appSetup = new AppSetup();
@@ -48,8 +42,8 @@ public class AppointmentScheduler implements Job {
       String messageBody = "Remember: " + name + ", on " + date + " you have an appointment!";
 
       Message message = Message
-          .create(new PhoneNumber(phoneNumber), new PhoneNumber(TWILIO_NUMBER), messageBody)
-          .execute();
+          .creator(new PhoneNumber(phoneNumber), new PhoneNumber(TWILIO_NUMBER), messageBody)
+          .create();
 
       System.out.println("Message sent! Message SID: " + message.getSid());
     }
