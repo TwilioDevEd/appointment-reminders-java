@@ -16,7 +16,7 @@ public class LoggingFilter implements Filter {
             "\nRequest {} {} {} HEADERS:[{}] BODY: {}\nResponse {} HEADERS:[{}] BODY: {} ";
     private static final String TEMPLATE_WITH_NO_BODY =
             "\nRequest {} {} {} HEADERS:[{}] \nResponse {} HEADERS:[{}]";
-    Logger logger = LoggerFactory.getLogger("LoggingFilter");
+    private static Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
     @Override
     public void handle(Request request, Response response) throws Exception {
