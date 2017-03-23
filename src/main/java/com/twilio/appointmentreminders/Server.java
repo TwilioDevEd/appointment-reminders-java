@@ -3,6 +3,7 @@ package com.twilio.appointmentreminders;
 import com.twilio.appointmentreminders.controllers.AppointmentController;
 import com.twilio.appointmentreminders.models.AppointmentService;
 import com.twilio.appointmentreminders.util.AppSetup;
+import com.twilio.appointmentreminders.util.LoggingFilter;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -62,5 +63,7 @@ public class Server {
     get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
     post("/create", controller.create, new MustacheTemplateEngine());
     post("/delete", controller.delete);
+
+    afterAfter(new LoggingFilter());
   }
 }
