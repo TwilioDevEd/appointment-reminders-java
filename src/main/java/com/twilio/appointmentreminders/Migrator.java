@@ -15,7 +15,7 @@ class Migrator {
     AppSetup appSetup = new AppSetup();
 
     /** Fetches database parameters form environment variables. */
-    Map<String, String> params = appSetup.getParamsFromDBURL(appSetup.getDatabaseURL());
+    Map<String, String> params = appSetup.getParamsFromDbUrl(appSetup.getDatabaseURL());
 
     /**
      * Uses Flyway to run database migrations. Migration files are located in

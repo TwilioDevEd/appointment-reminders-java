@@ -14,36 +14,43 @@ This sample application demonstrates how to send appointment reminders to custom
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Installing dependencies
+## Dependencies
 
-This app runs on Java 8, and has been tested on version 1.8.0_51. 
+This app runs on Java 8, and has been tested on version 1.8.0_51.
 
-You can install dependencies and build the project using [Maven](https://maven.apache.org/):
-```
-mvn clean install -DskipTests
-```
+You will also need [Postgres](http://www.postgresql.org/) running on your system.
 
-## Database migrations
+## Run the application
 
-First, make sure [Postgres](http://www.postgresql.org/) is running on your system.
 
-You'll need to set the environment variables specified in `.env.example`
-to match your local configuration and `source` that file, or set the
-environment variables manually.
+1. Copy the sample configuration file and edit it to match your configuration.
 
-The database schema is managed using [Flyway](https://github.com/flyway/flyway).
+  ```bash
+  $ cp .env.example .env
+  ```
 
-Migrate the database:
-```
-mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Migrator"
-```
-## Running the application
+ You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
+ [Twilio Account Settings](https://www.twilio.com/user/account/settings).
+ You will also need a `TWILIO_NUMBER`, which you may find [here](https://www.twilio.com/user/account/phone-numbers/incoming).
+ `DATABASE_URL` should point to the local Postgres database you want to use for this project.
 
-The application can be run with:
+ The load the environment variables:
 
-```
-mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Server"
-```
+ ```bash
+ $ source .env
+ ```
+
+1. The database schema is managed using [Flyway](https://github.com/flyway/flyway). Execute its migrations with:
+
+  ```bash
+  $ mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Migrator"
+  ```
+
+1. The application can be run with:
+
+  ```bash
+  mvn compile exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Server"
+  ```
 
 ## Run the tests
 

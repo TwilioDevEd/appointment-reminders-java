@@ -3,16 +3,22 @@ package com.twilio.appointmentreminders.util;
 import com.twilio.Twilio;
 import com.twilio.appointmentreminders.models.Appointment;
 import com.twilio.appointmentreminders.models.AppointmentService;
+import com.twilio.exception.TwilioException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManagerFactory;
 
 public class AppointmentScheduler implements Job {
+
+  private static Logger logger = LoggerFactory.getLogger(AppointmentScheduler.class);
+
   private static AppSetup appSetup = new AppSetup();
 
   public static final String ACCOUNT_SID = appSetup.getAccountSid();
@@ -41,11 +47,17 @@ public class AppointmentScheduler implements Job {
       String date = appointment.getDate();
       String messageBody = "Remember: " + name + ", on " + date + " you have an appointment!";
 
-      Message message = Message
-          .creator(new PhoneNumber(phoneNumber), new PhoneNumber(TWILIO_NUMBER), messageBody)
-          .create();
+      try {
+        Message message = Message
+                .creator(new PhoneNumber(phoneNumber), new PhoneNumber(TWILIO_NUMBER), messageBody)
+                .create();
+        System.out.println("Message sent! Message SID: " + message.getSid());
+      } catch(TwilioException e) {
+        logger.error("An exception occurred trying to send a message with Twilio: {] ", e.getMessage());
+        throw e;
+      }
 
-      System.out.println("Message sent! Message SID: " + message.getSid());
+
     }
   }
 }

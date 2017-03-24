@@ -15,7 +15,7 @@ public class AppSetup {
     this.env = System.getenv();
   }
 
-  public Map<String, String> getParamsFromDBURL(String url) {
+  public Map<String, String> getParamsFromDbUrl(String url) {
     Map<String, String> params = new HashMap<>();
     URI dbUri = null;
 
@@ -26,7 +26,7 @@ public class AppSetup {
     }
     String[] userInfo = dbUri.getUserInfo().split(":");
     String username = userInfo[0];
-    String password = null;
+    String password;
     if (userInfo.length > 1) {
       password = userInfo[1];
     } else {
@@ -50,7 +50,7 @@ public class AppSetup {
     AppSetup appSetup = new AppSetup();
     Map<String, String> configOverrides = new HashMap<>();
 
-    Map<String, String> params = appSetup.getParamsFromDBURL(getDatabaseURL());
+    Map<String, String> params = appSetup.getParamsFromDbUrl(getDatabaseURL());
 
     configOverrides.put("javax.persistence.jdbc.url", params.get("url"));
     configOverrides.put("javax.persistence.jdbc.user", params.get("username"));
@@ -62,11 +62,7 @@ public class AppSetup {
   public int getPortNumber() {
     String port = env.get("PORT");
 
-    if (port != null) {
-      return Integer.parseInt(port);
-    } else {
-      return 4567;
-    }
+    return port != null ? Integer.parseInt(port) : 4567;
   }
 
   public String getDatabaseURL() {
