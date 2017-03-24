@@ -53,8 +53,8 @@ public class AppointmentScheduler implements Job {
                 .create();
         System.out.println("Message sent! Message SID: " + message.getSid());
       } catch(TwilioException e) {
-        logger.error("An exception occurred trying to send a message with Twilio: {] ", e.getMessage());
-        throw e;
+        logger.error("An exception occurred trying to send the message \"{}\" to {}." +
+                " \nTwilio returned: {} \n", messageBody, phoneNumber, e.getMessage());
       }
 
 
