@@ -10,10 +10,6 @@ This sample application demonstrates how to send appointment reminders to custom
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/appointment-reminders-java.svg)](https://travis-ci.org/TwilioDevEd/appointment-reminders-java)
 
-## Deploy to Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
 ## Dependencies
 
 This app runs on Java 8, and has been tested on version 1.8.0_51.
