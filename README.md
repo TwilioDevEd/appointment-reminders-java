@@ -12,7 +12,7 @@ This sample application demonstrates how to send appointment reminders to custom
 
 ## Dependencies
 
-This app runs on Java 8, and has been tested on version 1.8.0_51.
+This app runs on Java 8.
 
 You will also need [Postgres](http://www.postgresql.org/) running on your system.
 
