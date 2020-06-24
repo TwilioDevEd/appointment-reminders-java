@@ -10,8 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class AppointmentServiceTest {
   private static EntityManagerFactory emFactory;
@@ -43,13 +42,13 @@ public class AppointmentServiceTest {
 
   @Test
   public void testCreate() {
-    assertThat(service.count(), is(0L));
+    assertEquals(service.count(), (Long) 0L);
 
     Appointment appointment =
         new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
     service.create(appointment);
 
-    assertThat(service.count(), is(1L));
+    assertEquals(service.count(), (Long) 1L);
   }
 
   @Test
@@ -62,11 +61,11 @@ public class AppointmentServiceTest {
         new Appointment("Mario2", "+1234567890", 100, "08-07-2015 12:00AM", "America/Guayaquil");
     service.create(appointment2);
 
-    assertThat(service.count(), is(2L));
+    assertEquals(service.count(), (Long) 2L);
 
     service.deleteAll();
 
-    assertThat(service.count(), is(0L));
+    assertEquals(service.count(), (Long) 0L);
   }
 
   @Test
@@ -81,7 +80,7 @@ public class AppointmentServiceTest {
 
     List<Appointment> result = service.findAll();
 
-    assertThat(result.size(), is(2));
+    assertEquals(result.size(), 2);
   }
 
   @Test
@@ -90,6 +89,6 @@ public class AppointmentServiceTest {
         new Appointment("Mario", "+593999012345", 1000, "08-07-2015 12:00AM", "America/Guayaquil");
     service.create(appointment);
 
-    assertThat(service.count(), is(1L));
+    assertEquals(service.count(), (Long) 1L);
   }
 }

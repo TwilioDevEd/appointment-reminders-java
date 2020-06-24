@@ -8,3 +8,4 @@ target/
 twilio-appointment-reminders.iml
 dependency-reduced-pom.xml
 .env
+*.sqlite

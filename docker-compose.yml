@@ -1,0 +1,14 @@
+version: "3.6"
+services:
+  app:
+    stdin_open: true
+    tty: true
+    environment:
+      - TWILIO_ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      - TWILIO_AUTH_TOKEN=your_account_token
+      - VERIFICATION_SID=VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      - DATABASE_URL=jdbc:sqlite:./mydb.sqlite
+      - PORT=8080
+    build: .
+    ports: 
+      - "8080:8080"
