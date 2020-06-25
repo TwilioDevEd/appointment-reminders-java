@@ -7,7 +7,7 @@
     "java"
   ],
   "scripts": {
-    "postdeploy": "java -cp target/classes:target/server.jar com.twilio.appointmentreminders.Migrator"
+    "postdeploy": "mvn flyway:migrate"
   },
   "addons": [
     "heroku-postgresql:hobby-dev"

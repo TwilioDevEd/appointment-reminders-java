@@ -18,8 +18,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AppointmentControllerTest {
@@ -65,20 +64,20 @@ public class AppointmentControllerTest {
     service.create(appointment);
 
     RequestHandler request = new RequestHandler();
-    String response = request.makeServiceCall("http://localhost:4567/", RequestHandler.GET);
+    String response = request.makeServiceCall("http://localhost:8080/", RequestHandler.GET);
     assertTrue(response.contains("Appointment to find"));
   }
 
   @Test
   public void testCreatePage() {
     RequestHandler request = new RequestHandler();
-    String response = request.makeServiceCall("http://localhost:4567/new", RequestHandler.GET);
+    String response = request.makeServiceCall("http://localhost:8080/new", RequestHandler.GET);
     assertTrue(response.contains("Create New Appointment"));
   }
 
   @Test
   public void testCreate() {
-    assertThat(service.count(), is(0L));
+    assertEquals(service.count(), (Long) 0L);
 
     RequestHandler request = new RequestHandler();
     List<NameValuePair> params = new ArrayList<>(5);
@@ -88,9 +87,9 @@ public class AppointmentControllerTest {
     params.add(new BasicNameValuePair("delta", "15"));
     params.add(new BasicNameValuePair("timeZone", "America/Guayaquil"));
 
-    request.makeServiceCall("http://localhost:4567/create", RequestHandler.POST, params);
+    request.makeServiceCall("http://localhost:8080/create", RequestHandler.POST, params);
 
-    assertThat(service.count(), is(1L));
+    assertEquals(service.count(), (Long) 1L);
   }
 
   @Test
@@ -101,14 +100,14 @@ public class AppointmentControllerTest {
     service.create(appointment);
     Long id = appointment.getId();
 
-    assertThat(service.count(), is(1L));
+    assertEquals(service.count(), (Long) 1L);
 
     RequestHandler request = new RequestHandler();
     List<NameValuePair> params = new ArrayList<>(1);
     params.add(new BasicNameValuePair("id", id.toString()));
 
-    request.makeServiceCall("http://localhost:4567/delete", RequestHandler.POST, params);
+    request.makeServiceCall("http://localhost:8080/delete", RequestHandler.POST, params);
 
-    assertThat(service.count(), is(0L));
+    assertEquals(service.count(), (Long) 0L);
   }
 }

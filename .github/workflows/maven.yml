@@ -1,0 +1,37 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java
+
+on:
+  push:
+    branches: [ master, next ]
+  pull_request:
+    branches: [ master, next ]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      max-parallel: 3
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+        java: [ 11, 12, 13 ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Execute migrations
+      run: mvn flyway:migrate
+    - name: Test
+      run: mvn compile test
+      env:
+        DATABASE_URL: jdbc:sqlite:./mydb.sqlite
+        PORT: 8080
+        TWILIO_ACCOUNT_SID: ACXXXXXXXXXXXXXXXXX
+        TWILIO_AUTH_TOKEN: your_token
+        TWILIO_NUMBER: your_twilio_number
