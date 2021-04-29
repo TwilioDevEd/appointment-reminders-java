@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/."
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.flywaydb:flyway-maven-plugin
+    versions:
+    - 7.5.2
+    - 7.8.0
+    - 7.8.1
+  - dependency-name: com.twilio.sdk:twilio
+    versions:
+    - 8.6.1
+  - dependency-name: org.flywaydb:flyway-core
+    versions:
+    - 7.5.2
+  - dependency-name: org.eclipse.persistence:org.eclipse.persistence.jpa
+    versions:
+    - 3.0.0
